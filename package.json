@@ -24,9 +24,7 @@
     "test:watch": "jest --watch --coverage",
     "test:jestupdate": "jest -u",
     "test:jest": "node_modules/.bin/jest --coverage",
-    "test:lint": "eslint src",
-    "precommit": "babel-node scripts/precommit.js",
-    "commitmsg": "babel-node scripts/commitmsg.js"
+    "test:lint": "eslint src"
   },
   "jest": {
     "collectCoverage": true
