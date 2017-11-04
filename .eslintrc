@@ -62,8 +62,5 @@
   ],
   "env": {
     "jest/globals": true
-  },
-  "globals": {
-    "fetch": false
   }
 }
