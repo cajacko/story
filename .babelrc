@@ -1,25 +1,16 @@
 {
-  "presets": ["babel-preset-expo"],
+  "presets": ["es2015", "stage-2"],
   "plugins": [
-    "transform-react-jsx-source",
     [
       "module-resolver",
       {
         "root": ["./src"],
         "alias": {
-          "components": "./src/components",
-          "actions": "./src/actions",
-          "containers": "./src/containers",
-          "constants": "./src/constants",
-          "helpers": "./src/helpers",
-          "views": "./src",
-          "store": "./src/store",
-          "reducers": "./src/reducers",
+          "src": "./src",
           "root": "./",
-          "scripts": "./scripts",
-          "data": "./src/data"
+          "scripts": "./scripts"
         },
-        "extensions": [".js", ".jsx"]
+        "extensions": [".js"]
       }
     ]
   ]
