@@ -47,7 +47,9 @@
     "build:ios": "exp build:ios",
     "build:android": "exp build:android",
     "build:status": "exp build:status",
-    "login:expo": "exp login"
+    "login:expo": "exp login",
+    "precommit": "babel-node scripts/precommit.js",
+    "commitmsg": "babel-node scripts/commitmsg.js"
   },
   "jest": {
     "preset": "jest-expo",
