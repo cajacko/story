@@ -1,17 +1,6 @@
 {
   "checklist": [
     {
-      "title": "Have new resouces been added to preload cache?",
-      "description": "Images, fonts, icons etc"
-    },
-    {
-      "title": "Have redundant cached resources been removed?",
-      "description": "Don't want to be preloading stuff we don't need to"
-    },
-    {
-      "title": "Do the help screenshots reflect the current app/changes?"
-    },
-    {
       "title": "Have you updated the changelog if necessary?"
     },
     {
@@ -69,16 +58,7 @@
       "title": "Are all error/debug messages informative and fun?"
     },
     {
-      "title": "Does help/welcome screens need updating?"
-    },
-    {
       "title": "Have related templates been updated if necessary?"
-    },
-    {
-      "title": "Does the privacy statement need updating?"
-    },
-    {
-      "title": "Is env.json set to production?"
     }
   ]
 }

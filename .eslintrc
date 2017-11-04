@@ -3,6 +3,7 @@
     "airbnb"
   ],
   "rules": {
+    "no-console": "off",
     "comma-dangle": [
       2,
       {
@@ -62,8 +63,5 @@
   ],
   "env": {
     "jest/globals": true
-  },
-  "globals": {
-    "fetch": false
   }
 }
