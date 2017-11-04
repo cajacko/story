@@ -29,7 +29,6 @@
     "commitmsg": "babel-node scripts/commitmsg.js"
   },
   "jest": {
-    "preset": "jest-expo",
     "collectCoverage": true
   },
   "dependencies": {

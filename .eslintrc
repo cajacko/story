@@ -3,6 +3,7 @@
     "airbnb"
   ],
   "rules": {
+    "no-console": "off",
     "comma-dangle": [
       2,
       {
