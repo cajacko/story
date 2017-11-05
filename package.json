@@ -18,6 +18,9 @@
   },
   "scripts": {
     "start": "babel-node src/index.js",
+    "build": "babel-node src/build.js",
+    "docker:build": "docker build -t story -f ./docker/Dockerfile ./docker",
+    "docker:run": "./scripts/run.sh",
     "auth": "babel-node src/auth.js",
     "git": "babel-node scripts/git.js",
     "test": "yarn test:lint && yarn test:jest",
@@ -50,6 +53,7 @@
     "eslint-plugin-react": "6.10.3",
     "express": "^4.16.2",
     "flow-check": "0.2.2",
+    "fluent-ffmpeg": "^2.1.2",
     "googleapis": "^22.2.0",
     "moment": "2.18.1",
     "multi-commands": "1.2.0"
