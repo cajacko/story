@@ -4,7 +4,7 @@ import { emptydir, writeJson } from 'fs-extra';
 import { join } from 'path';
 import download from 'src/download';
 
-const tmpDir = join(__dirname, '../tmp/combine');
+const tmpDir = join(__dirname, '../tmp/downloads');
 
 function getDownloadUrl(item) {
   const newItem = Object.assign({}, item);

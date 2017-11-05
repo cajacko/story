@@ -1,83 +1,30 @@
-import ffmpeg from 'fluent-ffmpeg';
 import { join } from 'path';
-import { emptydir, copy } from 'fs-extra';
-import { exec } from 'child_process';
-import items from 'tmp/combine/items.json';
+import items from 'tmp/downloads/items.json';
+// import imagesToVideos from 'src/imagesToVideos';
+import addSoundToVideos from 'src/addSoundToVideos';
+import concatVideos from 'src/concatVideos';
 
-function mediaPath(pre, name) {
-  return join(__dirname, `../tmp/${pre ? 'combine' : 'process'}/${name}`);
-}
+const itemsWithPaths = items.map((item) => {
+  const newItem = item;
 
-function prepareFile({ name }) {
-  return new Promise((resolve, reject) => {
-    const itemPath = mediaPath(true, name);
+  newItem.path = join(__dirname, '../tmp/downloads/', item.name);
 
-    ffmpeg.ffprobe(itemPath, (err, metadata) => {
-      if (err) return reject(err);
+  return newItem;
+});
 
-      let hasAudio = false;
+const images = [];
+const videos = [];
+const finalVideos = [];
 
-      metadata.streams.forEach(({ codec_type }) => {
-        if (codec_type === 'audio') {
-          hasAudio = true;
-        }
-      });
+itemsWithPaths.forEach(({ name, path }) => {
+  if (name.includes('.jpg')) {
+    images.push({ name, path });
+  } else {
+    videos.push({ name, path });
+  }
+});
 
-      const outputPath = mediaPath(false, name);
-
-      if (hasAudio) {
-        return copy(itemPath, outputPath).then(resolve);
-      }
-
-      exec(
-        `ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -i ${itemPath} -shortest -c:v copy -c:a aac ${outputPath}`,
-        {},
-        (error) => {
-          if (error) return reject(error);
-
-          return resolve();
-        }
-      );
-    });
-  });
-}
-
-function init() {
-  const itemsToProcess = [];
-
-  items.forEach((item) => {
-    if (item.name.includes('.mp4')) {
-      itemsToProcess.push(item);
-    }
-  });
-
-  const promises = [];
-
-  itemsToProcess.forEach((item) => {
-    promises.push(prepareFile(item));
-  });
-
-  Promise.all(promises).then(() => {
-    const command = ffmpeg();
-
-    itemsToProcess.forEach(({ name }) => {
-      if (name.includes('.mp4')) {
-        command.input(mediaPath(false, name));
-      }
-    });
-
-    command
-      .on('progress', (progress) => {
-        console.log(`Processing: ${Math.floor(progress.percent)}% done`);
-      })
-      .on('end', () => {
-        console.log('Finished processing');
-      })
-      .mergeToFile(
-        join(__dirname, '../tmp/output.mp4'),
-        join(__dirname, '../tmp/processing')
-      );
-  });
-}
-
-emptydir(join(__dirname, '../tmp/process')).then(init);
+// imagesToVideos(images, video => videos.push(video))
+addSoundToVideos(videos, video => finalVideos.push(video)).then(() =>
+  concatVideos(finalVideos)
+);
