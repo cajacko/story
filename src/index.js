@@ -1,6 +1,6 @@
 import 'src/getEnv';
 import fetch from 'node-fetch';
-import { emptydir } from 'fs-extra';
+import { emptydir, writeJson } from 'fs-extra';
 import { join } from 'path';
 import download from 'src/download';
 
@@ -40,7 +40,9 @@ emptydir(tmpDir)
   .then(() => fetch(process.env.GOOGLE_SCRIPT_URL))
   .then(res => res.json())
   .then(items =>
-    processAll(items, downloadItem).then(() => combineMedia(items))
+    processAll(items, downloadItem)
+      .then(() => combineMedia(items))
+      .then(() => writeJson(join(tmpDir, 'items.json'), items, { spaces: 2 }))
   )
   // .then(() => emptydir(tmpDir))
   .then(() => console.log('done'))
